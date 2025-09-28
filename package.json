@@ -1,0 +1,34 @@
+{
+  "name": "backend_nodejs",
+  "version": "1.0.0",
+  "description": "this's the basic of the backend",
+  "main": "bin/www.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon ./bin/www.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edrisarjmandrad/backEnd_nodeJS.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/edrisarjmandrad/backEnd_nodeJS/issues"
+  },
+  "homepage": "https://github.com/edrisarjmandrad/backEnd_nodeJS#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "http": "^0.0.1-security",
+    "joi": "^18.0.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.18.2",
+    "redis": "^5.8.2",
+    "uuid": "^13.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
