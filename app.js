@@ -8,6 +8,9 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+//router
+app.use("/api", route)
+
 // Example route
 app.get("/", (req, res) => {
   res.send("NOW we'er on");
