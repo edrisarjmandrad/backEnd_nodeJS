@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
-console.log('MONGO_URI:', process.env.MONGO_URI); // Should print your connection string
+console.log('MONGO_URI:', process.env.MONGO_URI);
 mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    serverSelectionTimeoutMS: 30000, // Increase timeout to handle transient issues
-    autoIndex: true, // Automatically build indexes (optional, depends on your use case)
+    serverSelectionTimeoutMS: 30000,
+    autoIndex: true,
 });
 
 mongoose.connection.on("connected", () => {
@@ -19,7 +19,7 @@ mongoose.connection.on("reconnected", () => {
 
 mongoose.connection.on("error", (error) => {
     console.error("Mongo connection has an error:", error);
-    mongoose.disconnect(); // Ensure the app knows about the disconnect
+    mongoose.disconnect(); 
 });
 
 mongoose.connection.on("disconnected", () => {
@@ -31,5 +31,5 @@ mongoose.connection.on("disconnected", () => {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });
-    }, 5000); // Retry connection after 5 seconds
+    }, 5000); 
 });
