@@ -1,5 +1,4 @@
 //#region packages
-import { send } from "process";
 import userService from "../services/user.js";
 
 export default {
@@ -24,6 +23,26 @@ export default {
                 message: error,
             });
         }
+    },onSendOtp: async (req, res) => {
+        try {
+            const response = await userService.onSendOtp(req);
+            return res.status(response.status).send(response.content);
+        } catch (error) {
+            return res.status(500).send({
+                success: false,
+                message: error,
+            });
+        }
+    },onValidateOtp: async (req, res) => {
+        try {
+            const response = await userService.onValidateOtp(req);
+            return res.status(response.status).send(response.content);
+        } catch (error) {
+            return res.status(500).send({
+                success: false,
+                message: error,
+            });
+        }
     },
     onDelete: async (req, res) => {
         try {
@@ -40,5 +59,12 @@ export default {
         } catch (error) {
             return res.status(500).send({ success: false, message: error });
         }
-    },
+    },onEditPass:async(req, res)=>{
+        try {
+            const response = await userService.onEditPass(req);
+            return res.status(response.status).send(response.content)
+        } catch (error) {
+            return res.status(500).send({success: false,message: error.message})
+        }
+    }
 };

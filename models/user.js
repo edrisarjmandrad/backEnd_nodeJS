@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema({
     phone: { type: String, required: true },
     isAdmin: { type: Boolean, required: true, default: false },
     lastLogin: { type: Date },
+    
 });
 
 export default mongoose.model("User", userSchema);
