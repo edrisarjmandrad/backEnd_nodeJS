@@ -3,7 +3,6 @@ import userValidation from "../validation/userValidation.js";
 import emailRegex from "email-regex";
 import bcrypt from "bcrypt";
 import mongoose from "mongoose";
-import utils from "../utils/regex.js";
 import jwt from "jsonwebtoken";
 import { sendEmail } from "../utils/sendEmail.js";
 import crypto from "crypto";
@@ -33,7 +32,9 @@ export default {
                     },
                 };
             }
-            const foundUser = await userModel.findOne({ $or: [{ email, phone }] });
+            const foundUser = await userModel.findOne({
+                $or: [{ email, phone }],
+            });
             if (foundUser) {
                 return {
                     status: 200,
@@ -82,7 +83,7 @@ export default {
             const foundUser = await userModel.findOne({ email }).lean();
             if (!foundUser) {
                 return {
-                    status: 200,
+                    status: 404,
                     content: {
                         message: "user not found",
                     },
@@ -135,6 +136,17 @@ export default {
                 };
             }
             const { email } = req.body;
+
+            const foundUser = userModel.findOne({email}).lean()
+            if(!foundUser){
+                return {
+                    status: 404,
+                    content: {
+                        success: false,
+                        message: "user Not foudn"
+                    }
+                }
+            }
 
             const otp = Math.floor(100000 + Math.random() * 900000);
 
@@ -207,7 +219,7 @@ export default {
     onEdit: async (req) => {
         try {
             const { id } = req.params;
-            const updateData = req.body;
+            const { userName, email, phone } = req.body;
 
             if (!id || !mongoose.Types.ObjectId.isValid(id)) {
                 return {
@@ -218,19 +230,17 @@ export default {
                 };
             }
 
-            // Prevent password update without hashing
-            if (updateData.password) {
-                updateData.password = await bcrypt.hash(updateData.password, 10);
-            }
-
-            const updatedUser = await userModel
-                .findByIdAndUpdate(id, { $set: updateData }, { new: true })
-                .lean();
+            const updatedUser = await userModel.findByIdAndUpdate(
+                id,
+                { $set: { userName, email, phone } },
+                { new: true }
+            ).lean();
 
             if (!updatedUser) {
                 return {
                     status: 404,
                     content: {
+                        success: false,
                         message: "User not found",
                     },
                 };
