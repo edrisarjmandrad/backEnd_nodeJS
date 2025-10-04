@@ -41,16 +41,6 @@ export default {
     onDeleteProduct: async (req) => {
         try {
             const productId = req.params;
-            const validationREsult = productValidation.deleteProduct(req.body);
-            if (!validationREsult.success) {
-                return {
-                    status: 400,
-                    content: {
-                        success: false,
-                        message: validationREsult.message,
-                    },
-                };
-            }
             const deleteProduct = await productModel.findByIdAndDelete(
                 productId
             );
