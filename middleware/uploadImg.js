@@ -35,10 +35,16 @@ const onUploadImage = (req, res, next) => {
         // Execute multer middleware
         handler(req, res, (err) => {
             if (err) {
+                console.log("Multer error:", err.message);
                 return res
                     .status(400)
                     .json({ success: false, message: err.message });
             }
+            
+            // Debug: Log what multer processed
+            console.log("After multer - req.files:", req.files);
+            console.log("After multer - req.body:", req.body);
+            
             next();
         });
     } catch (error) {

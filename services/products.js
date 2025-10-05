@@ -10,31 +10,60 @@ import productModel from "../models/product.js";
 export default {
     onAddProduct: async (req) => {
         try {
+            const userId = req.user.userId;
+            
             const validationResult = productValidation.addProduct(req.body);
             if (!validationResult.success) {
                 return {
                     status: 400,
                     content: {
-                        success: false,
+                        success: true,
                         message: validationResult.message,
                     },
                 };
             }
+
+            if (!req.files || !req.files.img || !req.files.img[0]) {
+                return {
+                    status: 400,
+                    content: {
+                        success: true,
+                        message: "image is required",
+                    },
+                };
+            }
+
             const { productName, categoryName, price, inventory } = req.body;
-            await productModel.insentOne({
+            const uploadedFile = req.files.img[0];
+            
+            const imageUrl = `/static/img/${uploadedFile.filename}`;
+
+            await productModel.create({
                 productName,
                 categoryName,
                 price,
                 inventory,
                 adminId: userId,
+                img: imageUrl,
             });
+            
             return {
                 status: 200,
-                content: { success: true, message: "product add successfully" },
+                content: { 
+                    success: true, 
+                    message: "product add successfully",
+                    data: {
+                        productName,
+                        categoryName,
+                        price,
+                        inventory,
+                        img: imageUrl
+                    }
+                },
             };
         } catch (error) {
             return {
-                statsu: 500,
+                status: 500,
                 content: {
                     success: false,
                     message: error.message,
@@ -44,7 +73,7 @@ export default {
     },
     onDeleteProduct: async (req) => {
         try {
-            const productId = req.params;
+            const productId = req.params.id;
             const deleteProduct = await productModel.findByIdAndDelete(
                 productId
             );
@@ -52,7 +81,7 @@ export default {
                 return {
                     status: 404,
                     content: {
-                        success: false,
+                        success: true,
                         message: "product doesn't found",
                     },
                 };
@@ -76,13 +105,13 @@ export default {
     },
     onEditProduct: async (req) => {
         try {
-            const productId = req.params;
+            const productId = req.params.id;
             const validationResult = productValidation.editProduct(req.body);
             if (!validationResult.success)
                 return {
                     status: 400,
                     content: {
-                        success: false,
+                        success: true,
                         message: validationResult.message,
                     },
                 };
@@ -94,7 +123,7 @@ export default {
             if (!foundProduct)
                 return {
                     status: 404,
-                    content: { success: false, message: "product not found" },
+                    content: { success: true, message: "product not found" },
                 };
             return {
                 status: 200,
@@ -105,7 +134,7 @@ export default {
             };
         } catch (error) {
             return {
-                statsu: 500,
+                status: 500,
                 content: {
                     success: false,
                     message: error.message,
@@ -115,23 +144,23 @@ export default {
     },
     onGetProduct: async (req) => {
         try {
-            const productId = req.params;
-            const foundProduct = productModel.findById({ productId }).lean();
+            const productId = req.params.id;
+            const foundProduct = await productModel.findById(productId);
             if (!foundProduct)
                 return {
                     status: 404,
                     content: {
-                        success: false,
+                        success: true,
                         message: "product doesn't found",
                     },
                 };
             return {
                 status: 200,
-                content: { success: false, product: foundProduct },
+                content: { success: true, product: foundProduct.lean() },
             };
         } catch (error) {
             return {
-                statsu: 500,
+                status: 500,
                 content: {
                     success: false,
                     message: error.message,
@@ -151,7 +180,7 @@ export default {
                 return acc;
             }, {});
 
-            const {filterPrice} = req.body;
+            // const {filterPrice} = req.body;
 
             return {
                 status: 200,

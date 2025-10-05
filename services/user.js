@@ -56,7 +56,7 @@ export default {
             });
             const token = jwt.sign(
                 { userId: createUser._id, isAdmin: createUser.isAdmin },
-                process.env.TOKENT_SECRET,
+                process.env.TOKEN_SECRET,
                 { expiresIn: "1h" }
             );
             return {
@@ -110,7 +110,7 @@ export default {
 
             const token = jwt.sign(
                 { userId: foundUser._id, isAdmin: foundUser.isAdmin },
-                process.env.TOKENT_SECRET,
+                process.env.TOKEN_SECRET,
                 { expiresIn: "1h" }
             );
 
@@ -241,7 +241,7 @@ export default {
 
             const token = jwt.sign(
                 { userId: foundUser._id, isAdmin: foundUser.isAdmin },
-                process.env.TOKENT_SECRET,
+                process.env.TOKEN_SECRET,
                 { expiresIn: "1h" }
             );
 

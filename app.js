@@ -3,12 +3,16 @@ import express from "express";
 import route from "./routes/routes.js"
 import cron from "node-cron";
 import otpModel from "./models/otp.js";
+import path from "path";
 
 const app = express();
 
 // Middleware to parse JSON and urlencoded data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Serve static files from static/img directory
+app.use("/static/img", express.static(path.join(process.cwd(), "static", "img")));
 
 app.use("/api", route)
 

@@ -23,6 +23,6 @@ router.post('/add_product', authentication.adminOnly, onUploadImage,productContr
 router.delete('/delete_product/:id', authentication.adminOnly, productController.onDeleteProduct)
 router.patch('/edit_product/:id', authentication.adminOnly, productController.onEditProduct)
 router.get("/get_product/:id", productController.onGetProduct)
-router.get("/get_products", productController.onGetProduct)
+router.get("/get_products", productController.onGetProducts)
 
 export default router;
