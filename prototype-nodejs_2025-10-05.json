@@ -1,0 +1,519 @@
+{
+	"_type": "export",
+	"__export_format": 3,
+	"__export_date": "2025-10-05T12:45:08.677Z",
+	"__export_source": "insomnia.desktop.app:v6.3.2",
+	"resources": [
+		{
+			"_id": "wrk_e81c8ab71c9742828f5ed9da535b31bf",
+			"created": 1759668263309,
+			"description": "",
+			"modified": 1759668263309,
+			"name": "prototype nodejs",
+			"parentId": null,
+			"_type": "workspace"
+		},
+		{
+			"_id": "env_24e1727871f04df3aebad7268f80faac",
+			"color": null,
+			"created": 1759668263347,
+			"data": {},
+			"isPrivate": false,
+			"metaSortKey": 1759668263347,
+			"modified": 1759668263347,
+			"name": "New Environment",
+			"parentId": "wrk_e81c8ab71c9742828f5ed9da535b31bf",
+			"_type": "environment"
+		},
+		{
+			"_id": "jar_386a6ac8520f4a9dbacc49e824f2bc55",
+			"cookies": [],
+			"created": 1759668263352,
+			"modified": 1759668263352,
+			"name": "Default Jar",
+			"parentId": "wrk_e81c8ab71c9742828f5ed9da535b31bf",
+			"_type": "cookie_jar"
+		},
+		{
+			"_id": "fld_9edd23872fbc44469072b39da33c2897",
+			"created": 1759668280109,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1754787111557.75,
+			"modified": 1759668280144,
+			"name": "prototype (Copy)",
+			"parentId": "wrk_e81c8ab71c9742828f5ed9da535b31bf",
+			"_type": "request_group"
+		},
+		{
+			"_id": "req_a2673f1c787446f69f94b449f156b990",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"userName\": \"iviorshed\",\n\t\"email\": \"0edris0arjmand0rad0@gmail.com\",\n\t\"password\": \"Edris@12345\",\n\t\"isAdmin\": true\n}"
+			},
+			"created": 1759668280113,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_8eea4b60285c47e09b90d5d3a8be9152",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1759580403632,
+			"method": "POST",
+			"modified": 1759668280113,
+			"name": "signup",
+			"parameters": [],
+			"parentId": "fld_9edd23872fbc44469072b39da33c2897",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://localhost:8080/api/signUp",
+			"_type": "request"
+		},
+		{
+			"_id": "req_0cd46f98f71c4a82b107d66155f62c90",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"email\": \"0edris0arjmand0rad0@gmail.com\",\n\t\"password\": \"iviorshed\"\n}"
+			},
+			"created": 1759668280116,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_ed30a1676e8343c1a36f904213abb14d",
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"id": "pair_3146fc28350244229c052c675155e094",
+					"name": "",
+					"value": ""
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1759580911578,
+			"method": "POST",
+			"modified": 1759668280116,
+			"name": "login",
+			"parameters": [],
+			"parentId": "fld_9edd23872fbc44469072b39da33c2897",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://localhost:8080/api/login",
+			"_type": "request"
+		},
+		{
+			"_id": "req_f0e15585371b4ea5adbdfd9771321bfa",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"email\": \"0edris0arjmand0rad0@gmail.com\"\n}"
+			},
+			"created": 1759668280118,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_197c858d88134b7eae175b1c69b70ab9",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1759581621444,
+			"method": "POST",
+			"modified": 1759668280118,
+			"name": "sendOtp",
+			"parameters": [],
+			"parentId": "fld_9edd23872fbc44469072b39da33c2897",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://localhost:8080/api/send_otp",
+			"_type": "request"
+		},
+		{
+			"_id": "req_aeeac6cd146b4735bdd0d88c5284fc1f",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"otp\": \"677450\",\n\t\"email\": \"0edris0arjmand0rad0@gmail.com\",\n\t\"key\": \"8f069cd075c276d6cefd0f221b3dc315\"\n}"
+			},
+			"created": 1759668280120,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_c361d3ec67d64f618106143bcc19d783",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1759583772597,
+			"method": "POST",
+			"modified": 1759668280120,
+			"name": "validateOtp",
+			"parameters": [],
+			"parentId": "fld_9edd23872fbc44469072b39da33c2897",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://localhost:8080/api/validate_otp",
+			"_type": "request"
+		},
+		{
+			"_id": "req_51bb6140ba1f44c58131fc02418b2d2c",
+			"authentication": {
+				"disabled": false,
+				"password": "",
+				"type": "basic",
+				"username": ""
+			},
+			"body": {
+				"mimeType": "application/json",
+				"text": ""
+			},
+			"created": 1759668280122,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_9d516509e0a54ba687327fc428777112",
+					"name": "",
+					"value": ""
+				},
+				{
+					"id": "pair_2ff9c491a22c4e0d9a7eefaee7daac8a",
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"id": "pair_d67569690c2446d0aeebcdf74cf2eec7",
+					"name": "auth_token",
+					"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI0MjMxYzg1MC1hM2NmLTQ5ZDctYjcyNy04ODg2Y2RhYTUyOTkiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3NTk2NTgyOTYsImV4cCI6MTc1OTY2MTg5Nn0.yKBFFv9OF5l5zjaX4J5adhyOMBvziLez5JWVAxKFnpg"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1759658329489,
+			"method": "DELETE",
+			"modified": 1759668280122,
+			"name": "delete user by id",
+			"parameters": [],
+			"parentId": "fld_9edd23872fbc44469072b39da33c2897",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://localhost:8080/api/user/e59de084-39b5-48b1-a665-ebc81c2773da",
+			"_type": "request"
+		},
+		{
+			"_id": "req_772eb494d7f4446d85dee60fa8294884",
+			"authentication": {
+				"disabled": false,
+				"password": "",
+				"type": "basic",
+				"username": ""
+			},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"userName\": \"edi\",\n\t\"phone\": \"09931392239\"\n}"
+			},
+			"created": 1759668280125,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_dc61f5f529834c55917017dd678c0710",
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"id": "pair_4ea02b27fcc04aa5b0a1f40f6380620f",
+					"name": "auth_token",
+					"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI0MjMxYzg1MC1hM2NmLTQ5ZDctYjcyNy04ODg2Y2RhYTUyOTkiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3NTk2NTgyOTYsImV4cCI6MTc1OTY2MTg5Nn0.yKBFFv9OF5l5zjaX4J5adhyOMBvziLez5JWVAxKFnpg"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1759658619813,
+			"method": "PATCH",
+			"modified": 1759668280125,
+			"name": "edit user",
+			"parameters": [],
+			"parentId": "fld_9edd23872fbc44469072b39da33c2897",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://localhost:8080/api/user/4231c850-a3cf-49d7-b727-8886cdaa5299",
+			"_type": "request"
+		},
+		{
+			"_id": "req_4e72ee45fd1b4a92baa6817af64c2092",
+			"authentication": {
+				"disabled": false,
+				"password": "",
+				"type": "basic",
+				"username": ""
+			},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"password\": \"iviorshed\"\n}"
+			},
+			"created": 1759668280127,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_3108788557ee49e4a6256308f6d4fd79",
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"id": "pair_cac2514807714b6d83a254b3289ecaa8",
+					"name": "auth_token",
+					"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI0MjMxYzg1MC1hM2NmLTQ5ZDctYjcyNy04ODg2Y2RhYTUyOTkiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3NTk2NTgyOTYsImV4cCI6MTc1OTY2MTg5Nn0.yKBFFv9OF5l5zjaX4J5adhyOMBvziLez5JWVAxKFnpg"
+				},
+				{
+					"id": "pair_c87113aea6264d679fb1e080efccc0d6",
+					"name": "",
+					"value": ""
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1759658619863,
+			"method": "PATCH",
+			"modified": 1759668280127,
+			"name": "edit pass",
+			"parameters": [],
+			"parentId": "fld_9edd23872fbc44469072b39da33c2897",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://localhost:8080/api/user_pass/4231c850-a3cf-49d7-b727-8886cdaa5299",
+			"_type": "request"
+		},
+		{
+			"_id": "req_cafc4c3cb75340df8ee649c115c8cfd5",
+			"authentication": {
+				"disabled": false,
+				"password": "",
+				"type": "basic",
+				"username": ""
+			},
+			"body": {
+				"mimeType": "multipart/form-data",
+				"params": [
+					{
+						"id": "pair_6ea3fb28830e4666b243ebfdc2d697c6",
+						"multiline": false,
+						"name": "productName",
+						"type": "text",
+						"value": "jordan air 4"
+					},
+					{
+						"id": "pair_bd402921036f4442a3f4794d1594ded1",
+						"name": "categoryName",
+						"value": "clothing"
+					},
+					{
+						"id": "pair_7427669d3cba4762a0712885a3476277",
+						"name": "price",
+						"value": "2.999.000"
+					},
+					{
+						"id": "pair_8d3b01b36f5f4711aeb3dfbcb6979244",
+						"name": "inventory",
+						"value": "5"
+					},
+					{
+						"fileName": "C:\\Users\\Edris\\Downloads\\pexels-ahmedadly-1270184.jpg",
+						"id": "pair_d8e176e04e204527bc8b9745b8c90282",
+						"name": "img",
+						"type": "file",
+						"value": ""
+					}
+				]
+			},
+			"created": 1759668280129,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_030104f414764023ba33bec7db1d16ef",
+					"name": "Content-Type",
+					"value": "multipart/form-data"
+				},
+				{
+					"id": "pair_7a3f491c25f44e1382c241c8c9fc7224",
+					"name": "auth_token",
+					"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI0MjMxYzg1MC1hM2NmLTQ5ZDctYjcyNy04ODg2Y2RhYTUyOTkiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3NTk2NjY3MzEsImV4cCI6MTc1OTY3MDMzMX0.VUEHuBsv1EAySxnOj7SoxKsHqqluNlyiOsT3D66H9FI"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1759661814333,
+			"method": "POST",
+			"modified": 1759668280129,
+			"name": "add product",
+			"parameters": [],
+			"parentId": "fld_9edd23872fbc44469072b39da33c2897",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://localhost:8080/api/add_product",
+			"_type": "request"
+		},
+		{
+			"_id": "req_30f2cf60c43d479691f43d02a8a45cbb",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": ""
+			},
+			"created": 1759668280133,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_554f44709b13480e94b47cc68f2cc602",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1759667253183,
+			"method": "GET",
+			"modified": 1759668280133,
+			"name": "get product",
+			"parameters": [],
+			"parentId": "fld_9edd23872fbc44469072b39da33c2897",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://localhost:8080/api/get_product/65c06e9d-0a94-46a8-b26d-75295a13c087",
+			"_type": "request"
+		},
+		{
+			"_id": "req_3f7becfd779446e3a33aa3dab60a3fd1",
+			"authentication": {},
+			"body": {},
+			"created": 1759668280135,
+			"description": "",
+			"headers": [],
+			"isPrivate": false,
+			"metaSortKey": -1759667451902,
+			"method": "GET",
+			"modified": 1759668280135,
+			"name": "all products",
+			"parameters": [],
+			"parentId": "fld_9edd23872fbc44469072b39da33c2897",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://localhost:8080/api/get_products",
+			"_type": "request"
+		},
+		{
+			"_id": "req_95bd08cc1c0447e1add04dd4f4ec5c21",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": ""
+			},
+			"created": 1759668280137,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_75a862f51b364a68b3b89998b185223f",
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"id": "pair_dbbd40b8ff7240718549052aff7120dc",
+					"name": "auth_token",
+					"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI0MjMxYzg1MC1hM2NmLTQ5ZDctYjcyNy04ODg2Y2RhYTUyOTkiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3NTk2NjY3MzEsImV4cCI6MTc1OTY3MDMzMX0.VUEHuBsv1EAySxnOj7SoxKsHqqluNlyiOsT3D66H9FI"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1759667581498,
+			"method": "DELETE",
+			"modified": 1759668280137,
+			"name": "delete product",
+			"parameters": [],
+			"parentId": "fld_9edd23872fbc44469072b39da33c2897",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://localhost:8080/api/delete_product/8d93c575-1cea-453e-97d1-f1f508959510",
+			"_type": "request"
+		},
+		{
+			"_id": "req_19560580f6ec4f4493c69f6637158e17",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"inventory\" : 7,\n\t\"price\": \"34999\",\n\t\"productName\": \"just shoews\"\n}"
+			},
+			"created": 1759668280140,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_c061244cac9848fcae7386b8003b7a8e",
+					"name": "auth_token",
+					"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI0MjMxYzg1MC1hM2NmLTQ5ZDctYjcyNy04ODg2Y2RhYTUyOTkiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3NTk2NjY3MzEsImV4cCI6MTc1OTY3MDMzMX0.VUEHuBsv1EAySxnOj7SoxKsHqqluNlyiOsT3D66H9FI"
+				},
+				{
+					"id": "pair_465d5f290fea4ae6b82c21600205f76e",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1759667671394,
+			"method": "PATCH",
+			"modified": 1759668280140,
+			"name": "edit product",
+			"parameters": [],
+			"parentId": "fld_9edd23872fbc44469072b39da33c2897",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://localhost:8080/api/edit_product/65c06e9d-0a94-46a8-b26d-75295a13c087",
+			"_type": "request"
+		}
+	]
+}
