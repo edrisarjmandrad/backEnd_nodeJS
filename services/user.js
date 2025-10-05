@@ -39,8 +39,9 @@ export default {
             });
             if (foundUser) {
                 return {
-                    status: 200,
+                    status: 409,
                     content: {
+                        success: true,
                         message: "there's an account with thsi email",
                     },
                 };
@@ -355,6 +356,15 @@ export default {
             const foundUser = await userModel.findById(id).lean();
             const notFound = await userNotFoundResponse(foundUser);
             if (notFound) return notFound;
+
+            if(password.length < 8) {
+                return {
+                    status: 400,
+                    content: {
+                        message: "Password must be at least 8 characters long",
+                    },
+                };
+            }
 
             const isMatch = await bcrypt.compare(password, foundUser.password);
             if (isMatch) {

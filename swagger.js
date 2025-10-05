@@ -1,13 +1,23 @@
-const swaggerJsDoc = require("swagger-jsdoc");
-const swaggerUi = require("swagger-ui-express");
+import swaggerJsDoc from "swagger-jsdoc";
+import swaggerUi from "swagger-ui-express";
 
 const options = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "Your Project API",
+      title: "api documentation for the backend",
       version: "1.0.0",
-      description: "API documentation for your Node.js backend",
+      description: "api documentation for the backend",
+    },
+    components: {
+      securitySchemes: {
+        AuthToken: {
+          type: "apiKey",
+          in: "header",
+          name: "auth_token",
+          description: "get token form : /api/login, /api/signUp, /api/validate_otp routews",
+        },
+      },
     },
     servers: [
       {
@@ -20,6 +30,8 @@ const options = {
 
 const swaggerSpec = swaggerJsDoc(options);
 
-module.exports = (app) => {
+const setupSwagger = (app) => {
   app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 };
+
+export default setupSwagger;

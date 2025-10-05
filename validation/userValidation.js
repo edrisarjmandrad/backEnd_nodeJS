@@ -6,7 +6,7 @@ export default {
         const schema = Joi.object({
             userName: Joi.string().required(),
             email: Joi.string().required(),
-            password: Joi.string().required(),
+            password: Joi.string().required().min(8),
             phone: Joi.string().allow("", null).length(11),
             isAdmin: Joi.boolean().allow("", null),
         });

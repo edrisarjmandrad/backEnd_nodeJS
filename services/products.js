@@ -145,7 +145,7 @@ export default {
     onGetProduct: async (req) => {
         try {
             const productId = req.params.id;
-            const foundProduct = await productModel.findById(productId);
+            const foundProduct = await productModel.findById(productId).lean();
             if (!foundProduct)
                 return {
                     status: 404,
@@ -156,7 +156,7 @@ export default {
                 };
             return {
                 status: 200,
-                content: { success: true, product: foundProduct.lean() },
+                content: { success: true, product: foundProduct },
             };
         } catch (error) {
             return {
