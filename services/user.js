@@ -23,7 +23,7 @@ export default {
                     },
                 };
             }
-            const { userName, email, password, phone } = req.body;
+            const { userName, email, password, phone, isAdmin } = req.body;
             const validateEmail = emailRegex({ exact: true }).test(email);
             if (!validateEmail) {
                 return {
@@ -35,26 +35,27 @@ export default {
                 };
             }
             const foundUser = await userModel.findOne({
-                $or: [{ email, phone }],
+                email,
             });
             if (foundUser) {
                 return {
                     status: 200,
                     content: {
-                        message: "you already signup with thsi info",
+                        message: "there's an account with thsi email",
                     },
                 };
             }
             const hashedPassword = await bcrypt.hash(password, 10);
-            await userModel.insertOne({
+            const createUser = await userModel.insertOne({
                 userName,
                 email,
                 password: hashedPassword,
                 phone,
+                isAdmin,
                 lastLogin: Date.now(),
             });
             const token = jwt.sign(
-                { userId: foundUser._id, isAdmin: foundUser.isAdmin },
+                { userId: createUser._id, isAdmin: createUser.isAdmin },
                 process.env.TOKENT_SECRET,
                 { expiresIn: "1h" }
             );
@@ -63,7 +64,7 @@ export default {
                 content: {
                     message: "user has created successfully",
                     success: true,
-                    token
+                    token,
                 },
             };
         } catch (error) {
@@ -151,11 +152,11 @@ export default {
 
             const otp = Math.floor(100000 + Math.random() * 900000);
 
-            await sendEmail({
-                to: email,
-                subject: "test otp",
-                text: `Your OTP code is: ${otp}`,
-            });
+            // await sendEmail({
+            //     to: email,
+            //     subject: "test otp",
+            //     text: `Your OTP code is: ${otp}`,
+            // });
 
             const expireTime = new Date(Date.now() + 2 * 60 * 1000); // 2 minutes from now
 
@@ -201,12 +202,16 @@ export default {
 
             const { email, key, otp } = req.body;
 
+            const foundUser = await userModel.findOne({ email }).lean();
+            const notFound = await userNotFoundResponse(foundUser);
+            if (notFound) return notFound;
+
             const otpRecord = await otpModel.findOne({ email, key }).lean();
             if (!otpRecord) {
                 return {
                     status: 404,
                     content: {
-                        success: false,
+                        success: true,
                         message: "otp not found",
                     },
                 };
@@ -216,7 +221,7 @@ export default {
                 return {
                     status: 400,
                     content: {
-                        success: false,
+                        success: true,
                         message: "otp has expired",
                     },
                 };
@@ -226,7 +231,7 @@ export default {
                 return {
                     status: 400,
                     content: {
-                        success: false,
+                        success: true,
                         message: "invalid otp code",
                     },
                 };
@@ -245,7 +250,7 @@ export default {
                 content: {
                     success: true,
                     message: "otp validated successfully",
-                    token
+                    token,
                 },
             };
         } catch (error) {
@@ -261,10 +266,11 @@ export default {
     onDelete: async (req) => {
         try {
             const { id } = req.params;
-            if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+            if (!id || typeof id !== "string" || id.length === 0) {
                 return {
                     status: 400,
                     content: {
+                        success: true,
                         message: "Invalid user id",
                     },
                 };
@@ -296,7 +302,7 @@ export default {
             const { id } = req.params;
             const { userName, email, phone } = req.body;
 
-            if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+            if (!id || typeof id !== "string" || id.length === 0) {
                 return {
                     status: 400,
                     content: {
@@ -321,7 +327,6 @@ export default {
                 content: {
                     message: "User updated successfully",
                     success: true,
-                    user: updatedUser,
                 },
             };
         } catch (error) {
@@ -339,7 +344,7 @@ export default {
             const { id } = req.params;
             const { password } = req.body;
 
-            if (!id || !mongoose.Types.ObjectId.isValid(id)) {
+            if (!id || typeof id !== "string" || id.length === 0) {
                 return {
                     status: 400,
                     content: {
@@ -351,7 +356,7 @@ export default {
             const notFound = await userNotFoundResponse(foundUser);
             if (notFound) return notFound;
 
-            const isMatch = bcrypt.compare(password, foundUser.password);
+            const isMatch = await bcrypt.compare(password, foundUser.password);
             if (isMatch) {
                 return {
                     status: 200,
@@ -363,7 +368,7 @@ export default {
                 };
             }
 
-            const hashPass = bcrypt.hash(password, 10);
+            const hashPass = await bcrypt.hash(password, 10);
 
             await userModel.findByIdAndUpdate(
                 id,

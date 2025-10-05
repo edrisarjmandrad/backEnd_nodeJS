@@ -8,10 +8,11 @@ const userSchema = new mongoose.Schema({
         default: uuidv4,
     },
     userName: { type: String, required: true },
-    phone: { type: String, required: true },
+    password: { type: String, required: true },
+    email: { type: String, required: true },
+    phone: { type: String, required: false, default: "" },
     isAdmin: { type: Boolean, required: true, default: false },
     lastLogin: { type: Date },
-    
 });
 
 export default mongoose.model("User", userSchema);

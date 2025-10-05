@@ -1,4 +1,7 @@
 //region packages
+import multer from "multer";
+
+//region files
 import productValidation from "../validation/productValidation.js";
 
 //region model
@@ -17,9 +20,10 @@ export default {
                     },
                 };
             }
-            const { productName, price, inventory } = req.body;
+            const { productName, categoryName, price, inventory } = req.body;
             await productModel.insentOne({
                 productName,
+                categoryName,
                 price,
                 inventory,
                 adminId: userId,
@@ -82,10 +86,10 @@ export default {
                         message: validationResult.message,
                     },
                 };
-            const { productName, price, inventory } = req.body;
+            const { productName, price, inventory, categoryName } = req.body;
             const foundProduct = await productModel.findByIdAndUpdate(
                 productId,
-                { $set: { productName, price, inventory } }
+                { $set: { productName, price, inventory, categoryName } }
             );
             if (!foundProduct)
                 return {
@@ -138,11 +142,22 @@ export default {
     onGetProducts: async (req) => {
         try {
             const allProducts = await productModel.find({}).lean();
+
+            // group products by categoryName
+            const grouped = allProducts.reduce((acc, product) => {
+                const category = product.categoryName;
+                if (!acc[category]) acc[category] = [];
+                acc[category].push(product);
+                return acc;
+            }, {});
+
+            const {filterPrice} = req.body;
+
             return {
                 status: 200,
                 content: {
                     success: true,
-                    products: allProducts,
+                    products: grouped,
                 },
             };
         } catch (error) {
