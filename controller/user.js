@@ -46,6 +46,22 @@ export default {
             });
         }
     },
+    onSendOtpWithRedis: async (req, res) => {
+        try {
+            const response = await userService.onSendOtpWithRedis(req);
+            return res.status(response.status).send(response.content);
+        } catch (error) {
+            return res.status(500).send({ success: false, message: error });
+        }
+    },
+    onValidateOtpWithRedis: async (req, res) => {
+        try {
+            const response = await userService.onSendOtpWithRedis(req);
+            return res.status(response.status).send(response.content);
+        } catch (error) {
+            return res.status(500).send({ success: false, message: error });
+        }
+    },
     onDelete: async (req, res) => {
         try {
             const response = await userService.onDelete(req);

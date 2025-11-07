@@ -2,10 +2,26 @@
 import http from "http";
 import dotenv from "dotenv";
 import app from "../app.js";
+import redis from "redis";
 import '../configs/mongo.js'
 import { mongoConnect } from "../configs/database.js";
 
 dotenv.config();
+
+const redisClient = redis.createClient({
+    url: process.env.REDIS_URL || "redis://localhost:6379"
+});
+
+await redisClient.connect();
+
+app.set("redisClient", redisClient);
+
+await redisClient.set("test", "test").then(async () => {
+    console.log(await redisClient.get("test"));
+}).catch((err) => {
+    console.log(err);
+});
+
 
 const port = normalizePort(process.env.PORT || "8080");
 app.set("port", port);
@@ -19,6 +35,8 @@ mongoConnect(() => {
     server.on("error", onError);
     server.on("listening", onListening);
 });
+
+
 
 function normalizePort(val) {
     const port = parseInt(val, 10);
@@ -43,7 +61,6 @@ function onError(error) {
 
     var bind = typeof port === "string" ? "Pipe " + port : "Port " + port;
 
-    // handle specific listen errors with friendly messages
     switch (error.code) {
         case "EACCES":
             console.error(bind + " requires elevated privileges");

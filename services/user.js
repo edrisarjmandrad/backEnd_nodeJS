@@ -264,6 +264,116 @@ export default {
             };
         }
     },
+    //#region otp with redis
+    onSendOtpWithRedis: async (req) => {
+        try {
+            const validationResult = userValidation.sendOtp(req.body);
+            if (!validationResult.success) {
+                return {
+                    status: 400,
+                    content: {
+                        success: false,
+                        message: validationResult.message,
+                    },
+                };
+            }
+
+            const { email } = req.body;
+
+            const foundUser = userModel.findOne({ email }).lean();
+            const notFound = await userNotFoundResponse(foundUser);
+            if (notFound) return notFound;
+            
+            const otp = Math.floor(100000 + Math.random() * 900000);
+            const key = crypto.randomBytes(16).toString("hex");
+
+            await redisClient.set(key, otp, "EX", 2 * 60); 
+
+            return {
+                status: 200,
+                content: {
+                    message: "otp has send to email",
+                    success: true,
+                    key
+                },
+            };
+        } catch (error) {
+            return {
+                status: 500,
+                content: {
+                    success: false,
+                    message: error.message,
+                },
+            };
+        }
+    },
+    onValidateOtpWithRedis: async (req) => {
+        try {
+            const validationResult = userValidation.validateOtp(req.body);
+            if (!validationResult.success) {
+                return {
+                    status: 400,
+                    content: {
+                        success: false,
+                        message: validationResult.message,
+                    },
+                };
+            }
+
+            const { email, key, otp } = req.body;
+
+            const foundUser = await userModel.findOne({ email }).lean();
+            const notFound = await userNotFoundResponse(foundUser);
+            if (notFound) return notFound;
+            
+            const storedOtp = await redisClient.get(key);
+            if (!storedOtp) {
+                return {
+                    status: 404,
+                    content: {
+                        success: true,
+                        message: "otp not found",
+                    },
+                };
+            }
+            
+            if (storedOtp !== otp) {
+                return {
+                    status: 400,
+                    content: {
+                        success: true,
+                        message: "invalid otp code",
+                    },
+                };
+            }
+            
+            await redisClient.del(key);
+
+            const token = jwt.sign(
+                { userId: foundUser._id, isAdmin: foundUser.isAdmin },
+                process.env.TOKEN_SECRET,
+                { expiresIn: "1h" }
+            );
+
+            return {
+                status: 200,
+                content: {
+                    success: true,
+                    message: "otp validated successfully",
+                    token,
+                },
+            };
+        } catch (error) {
+            return {
+                status: 500,
+                content: {
+                    success: false,
+                    message: error.message,
+                },
+            }
+        }
+    },
+    //#endregion
     onDelete: async (req) => {
         try {
             const { id } = req.params;
@@ -357,7 +467,7 @@ export default {
             const notFound = await userNotFoundResponse(foundUser);
             if (notFound) return notFound;
 
-            if(password.length < 8) {
+            if (password.length < 8) {
                 return {
                     status: 400,
                     content: {
