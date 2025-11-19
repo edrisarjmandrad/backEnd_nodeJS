@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+  app:
+    container_name: my-node-app
+    build: .
+    depends_on:
+      - mongo
+    env_file:
+      - .env
+    environment:
+      MONGO_URL="${MONGO_URL}"
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    restart: always
+  
+  mongo: 
+    image: mongo:lastest
+    container_name: mongo
+    port: 
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "${MONGO_INITDB_ROOT_USERNAME}"
+      MONGO_INITDB_ROOT_PASSWORD: "${MONGO_INITDB_ROOT_PASSWORD}"
+      MONGO_INITDB_DATABASE: "${MONGO_INITDB_DATABASE}"
+    env_file:
+      - .env
+    
+  redis: 
+    image: redis:lastest
+    container_name: redis
+    port: 
+      - "6379:6379"
+    environment:
+      REDIS_URL: "${REDIS_URL}"
+    env_file:
+      - .env
+    
